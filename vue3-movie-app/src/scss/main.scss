@@ -1,12 +1,2 @@
-$color--black: #000;
-$color--white: #fff;
-
-body {
-  background-color: $color--black;
-  h1 {
-    color: $color--white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-}
+//부트스트랩 설치된 곳에서 가져오기
+@import "../../node_modules/bootstrap/scss/bootstrap";
