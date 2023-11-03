@@ -2,9 +2,7 @@
   <RouterView />
 </template>
 
-<!--scope 제외해야 나머지 템플릿에도 잘 먹힌다 -->
-<style lang="sccs">
-@import "~/sccs/main.scss";
-
-
+<!-- scss를 가지고 와서 적용 scope 없으니까 하위 컴포넌트까지 다 적용됨 -->
+<style lang="scss">
+@import "./scss/main.scss"
 </style>
