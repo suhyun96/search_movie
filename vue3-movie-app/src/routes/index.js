@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from './Home.vue'
 import About from './About.vue'
+import Movie from './Movie'
 
 
 // createRouter 메서드 결과를 밖으로 내보내고 이걸 main.js가 받아서 사용  
@@ -17,7 +18,11 @@ export default createRouter({
         {
             path: '/about',
             component: About
-        }
+        },
+        {
+            path: '/movie',
+            component: Movie
+        },
 
     ]
 })
