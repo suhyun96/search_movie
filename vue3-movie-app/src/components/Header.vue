@@ -1,5 +1,6 @@
 <template lang="">
     <header>
+      <Logo/>
       <!-- nav-pills클래스 사용해서 active클래스 있으면 그거 스타일 적용 -->
       <div class="nav nav-pills">
         <div class="nav-item" v-for="nav in navigations" :key="nav.name">
@@ -12,7 +13,10 @@
       </div>
     </header>
 </template>
+
 <script>
+import Logo from './Logo.vue';
+
 export default {
   data() {
     return {
@@ -31,9 +35,24 @@ export default {
         }
       ]
     }
+  },
+  components: {
+    Logo,
   }
 }
 </script>
-<style lang="">
-    
+<style lang="scss" scoped>
+header {
+  height: 70px;
+  padding: 0 40px;
+  // 수평정렬
+  display: flex;
+  // 아이템들 가운데 정렬
+  align-items: center;
+
+  // header 클래스 안에 있는 Logo클래스만 적용 
+  .logo {
+    margin-right: 40px;
+  }
+}
 </style>
