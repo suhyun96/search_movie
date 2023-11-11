@@ -20,7 +20,6 @@ export default {
   color: $black;
   text-decoration: none;
 
-  //가상 명시자
   &:hover {
     color: $black;
   }
