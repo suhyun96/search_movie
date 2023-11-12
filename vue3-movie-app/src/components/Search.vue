@@ -53,11 +53,16 @@ export default {
   methods: {
     // 비동기 처리함수 
     async apply() {
-      //search movies
-      const OMDB_API_KEY = '7035c60c';
+      // 정의된 $store에 접근해서 action 함수를 실행하기 위해서 dispatchi() 메서드를 사용 
+      // mutations 실행할 때는 commit() 메서드 사용 
+      // index.js에 정의된 movie 모듈의 action에 있는 searchMovies 메서드를 사용 
+      this.$store.dispatch('movie/searchMovies', {
+        title: this.title,
+        type: this.type,
+        number: this.number,
+        year: this.year,
 
-      const res = await axios.get(`https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${this.title}&type=${this.type}&y=${this.year}&page=1`)
-      console.log(res);
+      })
     }
   }
 }

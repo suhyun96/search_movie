@@ -1,5 +1,5 @@
 // store 생성 함수 임포트 
-import { createSotre } from 'vuex'
+import { createStore } from 'vuex'
 import movie from './movie'
 import about from './about'
 export default createStore({
