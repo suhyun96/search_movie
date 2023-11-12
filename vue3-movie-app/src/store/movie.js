@@ -51,7 +51,7 @@ export default {
       const { title, type, number, year } = payload
       const OMDB_API_KEY = '7035c60c';
 
-      const res = await axios.get(`https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${number}`)
+      const res = await axios.get(`https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=1`)
       const { Search, totalResults } = res.data
       //mutation함수 사용ㅇ시 commit메서드 
       context.commit('updateState', {
@@ -61,6 +61,22 @@ export default {
 
       })
 
+      const total = parseInt(totalResults, 10)
+      const pageLength = Math.ceil(total / 10)
+      // 추가 요청 
+      if (pageLength > 1) {
+        for (let page = 2; page <= pageLength; page += 1) {
+          if (page > (number / 10)) {
+            break
+          }
+          const res = await axios.get(`https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${page}`)
+          const { Search } = red.data
+          context.commit('updateState', {
+            // 위에 꺼랑 덮어쓰기 하면 안되니까 전개연산자 써서 갱신
+            movies: [...context.state.movies, ...Search]
+          })
+        }
+      }
     }
   },
 }
