@@ -1,4 +1,5 @@
 import axios from 'axios'
+import _uniqBy from 'lodash/uniqBy'
 
 // 객체 리터럴 반환 
 export default {
@@ -48,17 +49,17 @@ export default {
     // context.state , context.getters 요렇게 사용 가능 
     // payload는 해당 메서드 실행시 받은 파라미터들이 들어오는 곳 
     async searchMovies(context, payload) {
+      // context 부분을 객체 분리롤 {commit, store} 로 써도 됨
       const { title, type, number, year } = payload
       const OMDB_API_KEY = '7035c60c';
 
       const res = await axios.get(`https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=1`)
       const { Search, totalResults } = res.data
-      //mutation함수 사용ㅇ시 commit메서드 
-      context.commit('updateState', {
-        movies: Search,
-        message: 'HELLO',
-        loading: true
 
+      //mutation함수 사용시 commit메서드 
+      context.commit('updateState', {
+        //중복된 값을 imdbID를 기준으로 중복제거함 
+        movies: _uniqBy(Search, 'imdbID'),
       })
 
       const total = parseInt(totalResults, 10)
@@ -73,7 +74,7 @@ export default {
           const { Search } = red.data
           context.commit('updateState', {
             // 위에 꺼랑 덮어쓰기 하면 안되니까 전개연산자 써서 갱신
-            movies: [...context.state.movies, ...Search]
+            movies: [...context.state.movies, ..._uniqBy(Search, 'imdbID')]
           })
         }
       }
